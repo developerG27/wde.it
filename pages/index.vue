@@ -5,6 +5,11 @@
       <h1 class="title">
         wde.it
       </h1>
+
+      <ul>
+        <li><NuxtLink to="/blog">Blog</NuxtLink></li>
+        <li><NuxtLink to="/support">Support</NuxtLink></li>
+      </ul>
       <div class="links">
         <a
           href="https://nuxtjs.org/"
