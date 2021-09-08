@@ -1,40 +1,60 @@
 <template>
-    <div>
-        <h1>Blog</h1>
-
+    <div class="page-blog d-flex">
         <div>
-            <h3></h3>
+            <h1>Blog</h1>
+
+            <w-article
+                v-for="(post, index) in posts"
+                :key="'post-'+ index"
+                :title="post.title.rendered"
+                :author="post.author"
+                :categories="post.categories"
+                :description="post.content.rendered"
+                :id="post.id"
+                :tags="post.tags"
+                :permalink="post.permalink"
+                :publish-date="post.date"
+            />
         </div>
 
-        {{posts}}
+
+        <button @click="toPost">Vai a </button>
     </div>
 </template>
 
 <script>
-import {getAllPost} from "../services/blogServices";
-import api from "../enums/api";
+import WArticle from "../components/wArticle";
 
 export default {
     name: "blog.vue",
+    components: {WArticle},
     layout: 'blog',
-    data() {
-        return {
-            posts: "",
-        }
-    },
     methods: {
-         async getArticles() {
-            this.posts =  await this.$axios.$get("http://localhost:8000/" + api.getAllPosts)
+        toPost(){
+            this.$router.push({
+                params: {
+                    path: '/nome-categoria/nome-posts',
+                    title: 'sono il titolo'
+                },
+                path: '/nome-categoria/nome-posts'
+            });
         }
     },
-    created() {
-        this.getArticles();
+    fetch() {
+        return this.$axios.get('http://localhost:8000/wp-json/wp/v2/posts').then(res => {
+            this.$store.commit('blog/savePosts', res.data)
+        })
     },
-    mounted() {
-        console.log("mounted");
+    computed: {
+        posts(){
+            return this.$store.state.blog.posts;
+        }
     }
 }
 </script>
 
-<style>
+<style lang="scss">
+.d-flex{
+    display: flex;
+}
 </style>

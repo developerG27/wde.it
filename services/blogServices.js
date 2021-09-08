@@ -1,13 +1,13 @@
 import api from "../enums/api";
-
 /**
+ * @param axios {Function}
  * @param perPage {number}
  * @param order {string}
  * @param categories {number}
  * @param categoriesExclude {number}
  * @param tags {string}
  * */
-export async function getAllPost(perPage, order, categories, categoriesExclude, tags){
+export async function getAllPost(axios, perPage, order, categories, categoriesExclude, tags){
     let url = api.getAllPosts;
 
     perPage !== undefined ? url += `?per_page=${perPage}` : url;
@@ -16,7 +16,7 @@ export async function getAllPost(perPage, order, categories, categoriesExclude, 
     categoriesExclude !== undefined ? url += `?categories_exclude=${categoriesExclude}` : url;
     tags !== undefined ? url += `?tags=${tags}` : url;
 
-    await $nuxt.$axios.$get(`http://localhost:8000${url}`);
+    return await axios.$get(`http://localhost:8000${url}`);
 }
 
 /**
