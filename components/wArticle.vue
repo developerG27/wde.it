@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="border-2">
         <p>Id: {{id}}</p>
         <p>Titolo: {{title}}</p>
         <p>Descrizione: {{description}}</p>
@@ -7,11 +7,14 @@
         <p>Tag: {{tags}}</p>
         <p>Autore: {{author}}</p>
         <p>Data di pubblicazione {{publishDate}}</p>
-        <p>Link {{permalink}}</p>
+
+        <br />
+
+        <button @click="click">Vai all'articolo</button>
     </div>
 </template>
-
 <script>
+
 export default {
     name: "w-article",
     props: {
@@ -33,10 +36,9 @@ export default {
 
     },
     methods: {
-
-    },
+        click(){
+            this.$emit('click', this.$props);
+        }
+    }
 }
 </script>
-
-<style>
-</style>

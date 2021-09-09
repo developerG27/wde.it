@@ -1,3 +1,6 @@
+const env = require('dotenv').config();
+const axios = require('axios');
+
 export default {
   // Target (https://go.nuxtjs.dev/config-target)
   target: 'static',
@@ -39,6 +42,8 @@ export default {
   axios: [
 
   ],
+
+  env: env.parsed,
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
